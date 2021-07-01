@@ -1,5 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 #include <iostream>
 
 #include "Game.h"
@@ -40,6 +43,16 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    // Initialize ImGui
+    std::string glsl_version = "#version 330";
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO* io = &ImGui::GetIO();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version.c_str());
+    ImGui::StyleColorsDark();
+    io->Fonts->AddFontFromFileTTF("assets/fonts/ComicNeue-Regular.ttf", 18.0f);
+
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
@@ -61,13 +74,21 @@ int main(int argc, char *argv[]) {
 
         App.Update(deltaTime);
 
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         App.Render();
+
+        ImGui_ImplGlfw_NewFrame();
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui::NewFrame();
+        App.RenderGUI();
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    ImGui::DestroyContext();
     ResourceManager::Clear();
 
     glfwTerminate();

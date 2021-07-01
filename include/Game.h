@@ -21,4 +21,5 @@ public:
     void ProcessInput(GLFWwindow *window, GLfloat dt);
     void Update(GLfloat dt);
     void Render();
+    void RenderGUI();
 };
