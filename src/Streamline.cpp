@@ -75,8 +75,8 @@ void Streamline::Init() {
     // generating initial position
     GLfloat sample_ticks_x = static_cast<GLfloat>(this->Resolution.x) / this->SampleDensity;
     GLfloat sample_ticks_y = static_cast<GLfloat>(this->Resolution.y) / this->SampleDensity;
-    for (GLfloat j = 1; j < this->SampleDensity; j++) {
-        for (GLfloat i = 1; i < this->SampleDensity; i++) {
+    for (GLuint j = 1; j < this->SampleDensity; j++) {
+        for (GLuint i = 1; i < this->SampleDensity; i++) {
 
             // 1. this is the start point of trail
             point_index = 0;

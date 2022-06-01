@@ -7,6 +7,7 @@
 
 #include "Game.h"
 #include "ResourceManager.h"
+#include "VERSION.hpp"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -52,6 +53,8 @@ int main(int argc, char *argv[]) {
     ImGui_ImplOpenGL3_Init(glsl_version.c_str());
     ImGui::StyleColorsDark();
     io->Fonts->AddFontFromFileTTF("assets/fonts/ComicNeue-Regular.ttf", 18.0f);
+
+    std::cout << "Version: " << PROJECT_VERSION << std::endl;
 
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     glEnable(GL_CULL_FACE);
